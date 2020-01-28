@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:theme_vendor/src/app_theme.dart';
 import 'package:theme_vendor/src/widget_theme.dart';
 
 class ThemeVendor extends StatefulWidget {
-
   /// If you want to keep the changes on the disk
   final bool onSave;
 
@@ -16,9 +14,16 @@ class ThemeVendor extends StatefulWidget {
   final List<WidgetTheme> widgets;
 
   /// function to build child, an action is passed to obtain the widget theme [getThemeWidget]
-  final Widget Function( AppTheme Function(String widgetThemeName) getThemeWidgetName) child;
+  final Widget Function(
+      AppTheme Function(String widgetThemeName) getThemeWidgetName) child;
 
-  const ThemeVendor({Key key, this.onSave  = false , @required this.themes, @required this.widgets, this.child}) : super(key: key);
+  const ThemeVendor(
+      {Key key,
+      this.onSave = false,
+      @required this.themes,
+      @required this.widgets,
+      this.child})
+      : super(key: key);
 
   @override
   _ThemeVendorState createState() => _ThemeVendorState();
@@ -29,10 +34,9 @@ class ThemeVendor extends StatefulWidget {
 }
 
 class _ThemeVendorState extends State<ThemeVendor> {
-  
   /// The name key to save in disk [_key]
   final String _key = "theme_vendor_";
-  
+
   /// List the themes  [ _themes ]
   /// is required
   /// Example:
@@ -43,7 +47,6 @@ class _ThemeVendorState extends State<ThemeVendor> {
   // ],
   List<AppTheme> _themes = [];
 
-
   /// List of widgets used in the application
   /// is required
   /// Example:
@@ -53,7 +56,6 @@ class _ThemeVendorState extends State<ThemeVendor> {
   // ],
   List<WidgetTheme> _widgets = [];
 
- 
   /// Get the widget theme by widgetName
   AppTheme getThemeWidget(String widgetName) {
     if (_widgets == null)
@@ -68,55 +70,50 @@ class _ThemeVendorState extends State<ThemeVendor> {
     return _themes.firstWhere(
         (appTheme) => (appTheme.themeName == widgetTheme.themeName));
   }
-  
+
   /// Change theme of widget
   /// If onSave is true then saved to disk
   setThemeWidget(String widgetName, String themeName) async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     for (var i = 0; i < _widgets.length; i++) {
       if (_widgets[i].widgetName == widgetName) {
-        
         _widgets[i].setThemeName(themeName);
 
-        if (widget.onSave)
-        {
-          await prefs.setString('$_key${_widgets[i].widgetName}',_widgets[i].themeName);
+        if (widget.onSave) {
+          await prefs.setString(
+              '$_key${_widgets[i].widgetName}', _widgets[i].themeName);
         }
 
-        setState((){});
+        setState(() {});
       }
     }
   }
-  
+
   /// Initialize widgets
   /// If onSave is true then saved to disk
   /// if widgetName already exists then take the saved value, if not then save it to disk
   iniWigets() async {
-    if (widget.onSave)
-    {
+    if (widget.onSave) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      for (var i = 0; i < _widgets.length; i++)
-      {
+      for (var i = 0; i < _widgets.length; i++) {
         WidgetTheme widgetTheme = _widgets[i];
 
-        if(!prefs.containsKey('$_key${widgetTheme.widgetName}'))
-        {
-          await prefs.setString('$_key${widgetTheme.widgetName}',widgetTheme.themeName);
-        }
-        else
-        {
-          _widgets[i].setThemeName(prefs.getString('$_key${widgetTheme.widgetName}')??widgetTheme.themeName);
+        if (!prefs.containsKey('$_key${widgetTheme.widgetName}')) {
+          await prefs.setString(
+              '$_key${widgetTheme.widgetName}', widgetTheme.themeName);
+        } else {
+          _widgets[i].setThemeName(
+              prefs.getString('$_key${widgetTheme.widgetName}') ??
+                  widgetTheme.themeName);
         }
       }
 
-      setState((){});
+      setState(() {});
     }
-  
   }
-  
+
   /// Get list of themes
   List<AppTheme> getThemes() {
     return _themes;
@@ -124,7 +121,7 @@ class _ThemeVendorState extends State<ThemeVendor> {
 
   /// Get AppTheme by theme name
   AppTheme getTheme(String themeName) {
-    return _themes.firstWhere((appTheme)=>appTheme.themeName == themeName);
+    return _themes.firstWhere((appTheme) => appTheme.themeName == themeName);
   }
 
   /// Get list of widgets
@@ -133,8 +130,9 @@ class _ThemeVendorState extends State<ThemeVendor> {
   }
 
   /// Get WidgetTheme by widget name
-  WidgetTheme getWidget( String widgetName) {
-    return _widgets.firstWhere((widgetTheme)=>widgetTheme.widgetName == widgetName);
+  WidgetTheme getWidget(String widgetName) {
+    return _widgets
+        .firstWhere((widgetTheme) => widgetTheme.widgetName == widgetName);
   }
 
   @override
