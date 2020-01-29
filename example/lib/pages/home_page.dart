@@ -58,6 +58,12 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text('Auth'),
             ),
+            RaisedButton(
+              onPressed: ()async{
+                await ThemeVendor.of(context).clear();
+              },
+              child: Text('Clear themes'),
+            ),
           ],
         ),
       ),

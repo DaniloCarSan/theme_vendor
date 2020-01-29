@@ -16,7 +16,9 @@ class _PerfilPageState extends State<PerfilPage> {
 
       body:Container(
         color:  ThemeVendor.of(context).getThemeWidget('App').themeData.accentColor,
-        child: Text('345345'),
+        child: Center(
+          child: Text('345345'),
+        ),
       ),
     );
   }

@@ -63,12 +63,20 @@ class _ThemeVendorState extends State<ThemeVendor> {
 
     if (_widgets.length == 0)
       throw new Exception(' argument  `themesWidgets` is not empty ');
-
-    WidgetTheme widgetTheme = _widgets
-        .firstWhere((widgetTheme) => (widgetTheme.widgetName == widgetName));
-
-    return _themes.firstWhere(
-        (appTheme) => (appTheme.themeName == widgetTheme.themeName));
+ 
+    try
+    {
+      WidgetTheme widgetTheme = _widgets
+          .firstWhere((widgetTheme) => (widgetTheme.widgetName == widgetName));
+      return _themes.firstWhere(
+          (appTheme) => (appTheme.themeName == widgetTheme.themeName));
+    }
+    catch (e)
+    {
+      print('Widget or theme name not found, clear the themes save in to disk !');
+      print('Got the first theme  [${_themes.first.themeName}]');
+      return _themes.first;
+    }
   }
 
   /// Change theme of widget
@@ -84,9 +92,20 @@ class _ThemeVendorState extends State<ThemeVendor> {
           await prefs.setString(
               '$_key${_widgets[i].widgetName}', _widgets[i].themeName);
         }
-
-        setState(() {});
       }
+    }
+    setState(() {});
+  }
+
+  /// Clear themes save in disk
+  Future<void>clear()async{
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    for (var i = 0; i < _widgets.length; i++)
+    {
+      WidgetTheme widgetTheme = _widgets[i];
+      await prefs.remove('$_key${widgetTheme.widgetName}');
     }
   }
 
@@ -109,7 +128,6 @@ class _ThemeVendorState extends State<ThemeVendor> {
                   widgetTheme.themeName);
         }
       }
-
       setState(() {});
     }
   }

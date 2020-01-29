@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
       child: ThemeVendor(
         onSave: true,
         themes: [
-          AppTheme(themeName: 'dark',themeData: ThemeData.dark()),
-          AppTheme(themeName: 'light',themeData: ThemeData.light()),
-          AppTheme(themeName: 'fallback',themeData: ThemeData.fallback()),
-          AppTheme(themeName:'pink',themeData: ThemeData(primaryColor: Colors.pink,accentColor: Colors.pinkAccent)),
-          AppTheme(themeName:'red',themeData: ThemeData(primaryColor: Colors.red,accentColor: Colors.redAccent)),
-          AppTheme(themeName:'green',themeData: ThemeData(primaryColor: Colors.green,accentColor: Colors.greenAccent)),
+          AppTheme(themeLabel: 'Theme dark',themeName: 'dark',themeData: ThemeData.dark()),
+          AppTheme(themeLabel: 'Theme light',themeName: 'light',themeData: ThemeData.light()),
+          AppTheme(themeLabel: 'Theme fallback',themeName: 'fallback',themeData: ThemeData.fallback()),
+          AppTheme(themeLabel: 'Theme pink',themeName:'pink',themeData: ThemeData(primaryColor: Colors.pink,accentColor: Colors.pinkAccent)),
+          AppTheme(themeLabel: 'Theme red',themeName:'red',themeData: ThemeData(primaryColor: Colors.red,accentColor: Colors.redAccent)),
+          AppTheme(themeLabel: 'Theme green',themeName:'green',themeData: ThemeData(primaryColor: Colors.green,accentColor: Colors.greenAccent)),
         ],
         widgets: [
           WidgetTheme(widgetLabel: 'Application ',widgetName: 'App',themeName: 'dark',others: Colors.red),

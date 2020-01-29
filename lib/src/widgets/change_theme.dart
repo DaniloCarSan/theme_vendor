@@ -43,7 +43,7 @@ class _ChangeThemeState extends State<ChangeTheme> {
       children: ThemeVendor.of(context)
           .getThemes()
           .map((appTheme) => RadioListTile(
-                title: Text(appTheme.themeName),
+                title: Text(appTheme.themeLabel),
                 value: appTheme.themeName,
                 onChanged: (themeName) => ThemeVendor.of(context)
                     .setThemeWidget(widgetName, themeName),
