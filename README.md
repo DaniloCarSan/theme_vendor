@@ -17,8 +17,8 @@ import 'package:theme_vendor/theme_vendor.dart';
 ThemeVendor(
     onSave: true,
     themes: [
-      AppTheme(themeName: 'dark',themeData: ThemeData.dark()),
-      AppTheme(themeName: 'light',themeData: ThemeData.light()),
+      AppTheme(themeLabel: 'Theme dark',themeName: 'dark',themeData: ThemeData.dark()),
+      AppTheme(themeLabel: 'Theme light',themeName: 'light',themeData: ThemeData.light()),
     ],
     widgets: [
       WidgetTheme(widgetLabel: 'Application',widgetName: 'App',themeName: 'dark'),
@@ -90,6 +90,9 @@ Theme(
 ````
 
 
+##### Inspired in packges 
+
+[dynamic_theme](https://pub.dev/packages/dynamic_theme) and [theme_provider](https://pub.dev/packages/theme_provider)
 
 ## Getting Started
 For help getting started with Flutter, view our 
