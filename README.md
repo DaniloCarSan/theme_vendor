@@ -8,6 +8,14 @@ A package to dynamically change themes, add different themes for specific parts 
 dependencies:
   theme_vendor:^0.0.1
 ````
+or
+````
+dependencies:
+  theme_vendor:
+    git:
+      url: https://github.com/DaniloCarSan/theme_vendor.git
+````
+
 ### Import package 
 ````
 import 'package:theme_vendor/theme_vendor.dart';
